@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\RHomeAuto.obj" 
+TO ".\Objects\Rhomeauto" 
+PRINT(".\Listings\Rhomeauto.m51") RAMSIZE(256) 
+CODE( 0X0000-0X1FFF )

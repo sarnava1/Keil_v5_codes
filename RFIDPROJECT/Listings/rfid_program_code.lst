@@ -1,0 +1,163 @@
+C51 COMPILER V9.57.0.0   RFID_PROGRAM_CODE                                                 03/25/2018 01:25:41 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE RFID_PROGRAM_CODE
+OBJECT MODULE PLACED IN .\Objects\rfid_program_code.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE rfid_program_code.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\RFIDPROJECT) DEBU
+                    -G OBJECTEXTEND PRINT(.\Listings\rfid_program_code.lst) TABS(2) OBJECT(.\Objects\rfid_program_code.obj)
+
+line level    source
+
+   1          #include<stdio.h>
+   2          #include<reg52.h>
+   3          #include<string.h>
+   4          #include<lcd_functions.h>
+   5          #include<uart_functions.h>//
+   6          
+   7          //lcd_functions.h contains functions for LCD display
+   8          //uart_functions.h contains functions for serial port communication
+   9          
+  10          sbit buzzer=P2^3;//in the video it says that the buzzer is connected to the pin 2 of port 3 but while typi
+             -ng they typed this
+  11          int i,j;
+  12          char stored_cardid[12]={"020010709BF9"};//id of the tag which has access
+  13          
+  14          void motor(){//function for the motor to turn on and operate the gates
+  15   1        P2=0x01;//will turn the gate clockwise
+  16   1        delay(200);
+  17   1        P2=0x00;//will stop the gate
+  18   1        delay(200);
+  19   1        P2=0x02;//will turn the gate anti-clockwise
+  20   1        delay(200);
+  21   1        P2=0x00;//will stop the gate
+  22   1        delay(200);
+  23   1      }
+  24          
+  25          
+  26          void main(){
+  27   1        while(1){
+  28   2          int count=0;
+  29   2          int count1=0;
+  30   2          int count2=0;
+  31   2          int count3=0;
+  32   2          int count4=0;
+  33   2          int count5=0;
+  34   2          int flag=0;
+  35   2          buzzer=0;
+  36   2          lcdint();//initialize the lcd
+  37   2          
+  38   2          //after initialization display the text "sarnava" in the first line of the lcd
+  39   2          
+  40   2          while(text[count]!='\0'){//run the loop while there is character left in the text array
+  41   3            display(text[count]);//display letters of "sarnava" one by one in quick succession
+  42   3            count++;
+  43   3          
+  44   3        }
+  45   2         //display the text "RFID Access Cont" in the second line of the lcd
+  46   2          
+  47   2        lcdcmd(0xC0);//go to the second line of the lcd
+  48   2        
+  49   2        while(text1[count1]!='\0'){//run the loop while there is character left in the text array
+  50   3            display(text1[count1]);//display letters of "sarnava" one by one in quick succession
+  51   3            count1++;
+  52   3          
+  53   3        }
+C51 COMPILER V9.57.0.0   RFID_PROGRAM_CODE                                                 03/25/2018 01:25:41 PAGE 2   
+
+  54   2        
+  55   2        receive();//receive _data from the EM-18 redear module serially
+  56   2        //run a loop 12 times to check if each of the letter of the card matches that of the stored card id;
+  57   2        for(j=0;j<=11;j++){
+  58   3          if(stored_cardid[j]==a[j]){
+  59   4            flag=flag+1;
+  60   4          }
+  61   3        }
+  62   2        
+  63   2        if(flag==12){//if all the letters match
+  64   3          lcdcmd(0x01);//clear the lcd screen
+  65   3          lcdcmd(0x80);//bring the cursor to the first line of the lcd screen
+  66   3          
+  67   3          while(text2[count2]!='\0'){//run the loop while there is character left in the text array
+  68   4            display(text2[count2]);//display letters of "welcome" one by one in quick succession
+  69   4            count2++;
+  70   4          
+  71   4        }
+  72   3          
+  73   3          lcdcmd(0xC0);//ini the cursor to the second line of the lcd
+  74   3        
+  75   3         while(text3[count3]!='\0'){//run the loop while there is character left in the text array
+  76   4            display(text3[count3]);//display letters of "access granted" one by one in quick succession
+  77   4            count3++;
+  78   4          
+  79   4        }
+  80   3         
+  81   3        delay(500);
+  82   3        motor();//open the gates
+  83   3      }
+  84   2        else{
+  85   3          lcdcmd(0x01);//clear the lcd screen
+  86   3          lcdcmd(0x80);//bring the cursor to the first line of the lcd screen
+  87   3          
+  88   3          while(text4[count4]!='\0'){//run the loop while there is character left in the text array
+  89   4            display(text4[count4]);//display letters of "access denied" one by one in quick succession
+  90   4            count4++;
+  91   4          
+  92   4        }
+  93   3          
+  94   3        delay(500);
+  95   3        
+  96   3        buzzer=1;
+  97   3        delay(100);
+  98   3        buzzer=0;
+  99   3        delay(100);
+ 100   3       }
+ 101   2      }
+ 102   1        }
+ 103          
+ 104            
+ 105            
+ 106            
+ 107            
+ 108          //  1.0th pin is the ground pin..connect it to any gnd pin of the dev board
+ 109          //2.1st pin is the vcc pin..connect it to any vcc pin of the dev board
+ 110          //3.2nd pin is the contrast control pin..connectiong it to gnd will give it max contrast..altrnatively cou
+             -ld have connected it to 
+ 111          //a potentiometer which would have adjusted its contrast.
+ 112          //4.the 3rd pin is the _register pin..connect it to signal pin 7 of port 3
+ 113          //5.the 4th pin is the read or write pin...connect it to signal pin 6 of port 3
+ 114          //6.the 5th pin is the enable pin...connect it to signal pin 5 of port 3
+C51 COMPILER V9.57.0.0   RFID_PROGRAM_CODE                                                 03/25/2018 01:25:41 PAGE 3   
+
+ 115          //7.the 15th pin is a gnd pin..connect it to any gnd of dev board
+ 116          //8.the 14th pin is a vcc pin..connect to any vcc pin of dev board..
+ 117          //9.the rest are _data pins and are connected to port0 pins like..
+ 118            //D0 TO P0 PIN1,D1 TO P0 PIN2 and are continued like this
+ 119          //10. the positive pin of the buzzer connected to L+ and negative to L-
+ 120          //11.the red of the motor to R- and the black to R+.
+ 121          //12.the ground of the EM-18 module connected to any gnd of the dev board
+ 122          //13.the Tx pin of the module is connected to P3 signal pin 0 which is the Rx pin of the microcontroller..
+ 123          //14.open the putty client and set the connection type to serial and the communication port to the channel
+             - to which the USB
+ 124          //TO UART bridge is connected..to do this go to control panel and then device manager and then see to whic
+             -h port it is connected
+ 125          //15.then follow the _code as it is written in keil
+ 126          //16.
+ 127           
+ 128          
+ 129          
+ 130          
+ 131          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    429    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     95      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

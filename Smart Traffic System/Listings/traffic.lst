@@ -1,0 +1,70 @@
+C51 COMPILER V9.57.0.0   TRAFFIC                                                           12/31/2017 18:49:08 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE TRAFFIC
+OBJECT MODULE PLACED IN .\Objects\traffic.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE c File\traffic.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Lis
+                    -tings\traffic.lst) TABS(2) OBJECT(.\Objects\traffic.obj)
+
+line level    source
+
+   1          #include<stdio.h>
+   2          #include<reg52.h>
+   3          unsigned int a,i,j;
+   4          void delay(unsigned int t){
+   5   1          for(i=0;i<t;i++){
+   6   2            a=P3&0x0f;
+   7   2            if(a!=0x00)
+   8   2            break;
+   9   2            for(j=0;j<5000;j++);
+  10   2           }
+  11   1      }
+  12          void main(){
+  13   1         while(1){
+  14   2           a=P3&0x0f;
+  15   2           if(a==0x00){
+  16   3             P0=0x1e;
+  17   3             delay(150);
+  18   3             P0=0x2d;
+  19   3             delay(150);
+  20   3             P0=0x4b;
+  21   3             delay(150);
+  22   3             P0=0x87;
+  23   3             delay(150);
+  24   3           }
+  25   2           if(a==0x01){
+  26   3             P0=0x1e;
+  27   3             delay(250);
+  28   3           }
+  29   2           if(a==0x02){
+  30   3             P0=0x2d;
+  31   3             delay(250);
+  32   3           }
+  33   2           if(a==0x04){
+  34   3             P0=0x4b;
+  35   3             delay(250);
+  36   3           }
+  37   2           if(a==0x08){
+  38   3             P0=0x87;
+  39   3             delay(250);
+  40   3           }
+  41   2         }
+  42   1       }
+  43          
+  44                 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    165    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.57.0.0   TRAFFIC                                                           12/31/2017 18:49:08 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

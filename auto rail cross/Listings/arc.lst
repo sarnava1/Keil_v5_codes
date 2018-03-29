@@ -1,0 +1,238 @@
+C51 COMPILER V9.57.0.0   ARC                                                               02/19/2018 08:01:41 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE ARC
+OBJECT MODULE PLACED IN .\Objects\arc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE arc.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\arc.l
+                    -st) TABS(2) OBJECT(.\Objects\arc.obj)
+
+line level    source
+
+   1          #include<stdio.h>
+   2          #include<reg52.h>
+   3          #define open 0x0a;//to open the gate by rotating it clockwise
+   4          #define close 0x05;//to close the gate by rotating it anti clockwise
+   5          #define stop 0x00;//to stop the movement of the gate
+   6          //_sbit c=P0^5;//this is where the red led is connected
+   7          sbit d=P0^6;//this is where the red led is connected
+   8          sbit e=P0^7;//this is where the green led is connected
+   9          //_sbit f=P0^4;//this is where the red led is connected
+  10          sbit rs1=P0^4;
+  11          sbit rs2=P0^3;
+  12          sbit check=P0^5;
+  13          unsigned int a,b,i,j;
+  14          
+  15          void delay(unsigned int t){
+  16   1      for(i=0;i<t;i++){
+  17   2      for(j=0;j<1275;j++){
+  18   3      }
+  19   2      }
+  20   1      }
+  21          //============================FEW THINGS ABOUT THE SETUP WHEN THE VIDEO WAS SHOT==========================
+             -===========
+  22          //1.the second motor was not working because of loose connection
+  23          //2.all the sensors except one road sensor was not working
+  24          //3.except the case of when vehicles will be stranded even when the train is approaching was not being han
+             -dled
+  25          //4.i tried making many changes for that to work and that why all the comments and changes
+  26          //5.i introduced the red led on pin 6 and also introduced a checking led to see if my road sensor was work
+             -ing well
+  27          //6.since i had used leds on only one side of the road i commented out the connections of the other leds
+  28          //7.with more time and patience this project can be developed into something really big and working and wi
+             -th correct code
+  29          //========================================================================================================
+             -==============
+  30          
+  31          
+  32          
+  33          //here my road sensors are connected to pin 2 and 3 of the of port 0 
+  34          //my road sensor 2 does not work that is the sensor connected to the pin 3 of port 0 does not work and so 
+             -i have in the conditions
+  35          //of train approaching and vehicles stranded have only taken into account rs1==1
+  36          //if both would have worked we would have written rs1==1||rs2==1
+  37          //pin0 and pin 1 of port 0 has the rail track sensors connected to it
+  38          //i have connected the green led to pin 7 and the red led to pin 5 of port 0 of the dev board
+  39          //the leds of the other side are not connected due to the lack of jumper wires(sorry i had enuf jumpers bu
+             -t had no time and patience)
+  40          
+  41          void main(){
+  42   1      while(1){
+  43   2      a=P0&0x03;
+  44   2      if(a==0x00){
+  45   3      P2=stop;//no movement of gates
+  46   3        //d=1;//the green led should be on
+  47   3        e=1;//the green led should be on
+C51 COMPILER V9.57.0.0   ARC                                                               02/19/2018 08:01:41 PAGE 2   
+
+  48   3        //d=1;//the green led should be on
+  49   3        //c=0;//turn off the red led
+  50   3        d=0;//turn off the red led
+  51   3        if(rs1==1)
+  52   3          check=1;
+  53   3        else
+  54   3          check=0;
+  55   3      }
+  56   2      ////
+  57   2      //train arriving from right
+  58   2      if(a==0x01){
+  59   3      //d=;//turn off the green led
+  60   3      e=0;//turn off the green led
+  61   3      d=1;//turn on the red led
+  62   3      //c=1;//turn on the red led
+  63   3      P2=close;//close the gates
+  64   3      delay(300);
+  65   3      P2=stop;//keep the gates closed
+  66   3      delay(600);
+  67   3      P2=open;
+  68   3      delay(300);
+  69   3          if(rs1==1)
+  70   3          check=1;
+  71   3        else
+  72   3          check=0;
+  73   3      }
+  74   2      
+  75   2      
+  76   2      //train is approaching from the left
+  77   2      if(a==0x02){
+  78   3      //d=0;//turn off the green led  
+  79   3      e=0;//turn off the green led
+  80   3      d=1;//turn on the red led
+  81   3      //c=1;//turn on the red led 
+  82   3      P2=close;//close the gates
+  83   3      delay(300);
+  84   3      P2=stop;//keep the gates closed
+  85   3      delay(600);
+  86   3      P2=open;
+  87   3      delay(300);
+  88   3          if(rs1==1)
+  89   3          check=1;
+  90   3        else
+  91   3          check=0;
+  92   3      }
+  93   2      
+  94   2      
+  95   2      //both the sensors are sensing the approach of train
+  96   2      if(a==0x03){
+  97   3      //d=0;//turn off the green led  
+  98   3      e=0;//turn off the green led
+  99   3      d=1;//turn on the red led
+ 100   3      //c=1;//turn on the red led 
+ 101   3      P2=close;//close the gates
+ 102   3      delay(300);
+ 103   3      P2=stop;//keep the gates closed
+ 104   3      delay(600);
+ 105   3      P2=open;
+ 106   3      delay(300); 
+ 107   3          if(rs1==1)
+ 108   3          check=1;
+ 109   3        else
+C51 COMPILER V9.57.0.0   ARC                                                               02/19/2018 08:01:41 PAGE 3   
+
+ 110   3          check=0;
+ 111   3      }
+ 112   2      
+ 113   2      
+ 114   2      //train is arriving from right and the road sensors 1 or 2 sense vehicles on the road
+ 115   2      if(rs1==1&&a==0x02){
+ 116   3          if(rs1==1)
+ 117   3          check=1;
+ 118   3        else
+ 119   3          check=0;
+ 120   3      e=1;//turn on the green led
+ 121   3      
+ 122   3      //d=1;//turn on the green led 
+ 123   3      d=0;//turn off the red led
+ 124   3      //c=0;//turn off the red led
+ 125   3      P2=stop;  
+ 126   3      P2=open;//open the gates
+ 127   3      delay(300);
+ 128   3      P2=stop;
+ 129   3      delay(300);
+ 130   3      e=0;//turn off the green led
+ 131   3      ///d=0;//turn off the green led 
+ 132   3      d=1;//turn on the red led
+ 133   3      //c=1;//turn on the red led 
+ 134   3      P2=close;//close the gates
+ 135   3      delay(900);
+ 136   3      P2=stop;
+ 137   3      delay(200); 
+ 138   3      d=0;//turn off the red led
+ 139   3      //c=0;//turn off the red led  
+ 140   3      e=1;//turn on the green led
+ 141   3      //d=0;//turn on the green led 
+ 142   3      P2=open;
+ 143   3      delay(300);
+ 144   3      P2=stop;
+ 145   3      delay(600);
+ 146   3      }
+ 147   2      
+ 148   2      
+ 149   2      
+ 150   2      //train is coming from the left and 1 or 2 vehicles are stranded on the road
+ 151   2      
+ 152   2      if(rs1==1&&a==0x01){
+ 153   3        if(rs1==1)
+ 154   3          check=1;
+ 155   3        else
+ 156   3          check=0;
+ 157   3        e=1;//turn on the green led
+ 158   3      
+ 159   3      //d=1;//turn on the green led 
+ 160   3      d=0;//turn off the red led
+ 161   3      //c=0;//turn off the red led
+ 162   3      P2=stop;  
+ 163   3      P2=open;//open the gates
+ 164   3      delay(300);
+ 165   3      P2=stop;
+ 166   3      delay(300);
+ 167   3      e=0;//turn off the green led
+ 168   3      ///d=0;//turn off the green led 
+ 169   3      d=1;//turn on the red led
+ 170   3      //c=1;//turn on the red led 
+ 171   3      P2=close;//close the gates
+C51 COMPILER V9.57.0.0   ARC                                                               02/19/2018 08:01:41 PAGE 4   
+
+ 172   3      delay(900);
+ 173   3      P2=stop;
+ 174   3      delay(200); 
+ 175   3      d=0;//turn off the red led
+ 176   3      //c=0;//turn off the red led  
+ 177   3      e=1;//turn on the green led
+ 178   3      //d=0;//turn on the green led 
+ 179   3      P2=open;
+ 180   3      delay(300);
+ 181   3      P2=stop;
+ 182   3      delay(600);
+ 183   3      
+ 184   3      }
+ 185   2      }
+ 186   1      }
+ 187          
+ 188          
+ 189          //=======================CONNECTIONS=========================================
+ 190          //1.all are very easy
+ 191          //2.do the motor setup and then connect two batteries in parallel for powering the motor
+ 192          //3.the usbasp programmer is easy and very easily connected to the dev board
+ 193          //4.the four ir sensors dout is connected to pins 0,1,2,3 of PORT 0.
+ 194          //5.the four ir sensors ground and vcc are connected to any ground and vcc of the dev board
+ 195          //6.the wiring connections as shown in the video is bakwaas and need be done..i did it with jumper wires..
+             -its easy
+ 196          //if you understand the logic
+ 197          //7.bas these were all the connections that needed to be done..additionally you can connect the leds to gi
+             -ve the signal lights
+ 198          //they are also very easy
+ 199          //==========================THE END OF CONNECTIONS==============================
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    312    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

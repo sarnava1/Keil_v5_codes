@@ -1,0 +1,133 @@
+C51 COMPILER V9.57.0.0   TRAFFICFINALCODE                                                  01/22/2018 01:34:17 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE TRAFFICFINALCODE
+OBJECT MODULE PLACED IN .\Objects\trafficfinalcode.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE c file\trafficfinalcode.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\trafficfinalcode.lst) TABS(2) OBJECT(.\Objects\trafficfinalcode.obj)
+
+line level    source
+
+   1          #include<stdio.h>
+   2          #include<reg52.h>
+   3          unsigned int a,i,j;
+   4          void delay(unsigned int t){
+   5   1          for(i=0;i<t;i++){
+   6   2            a=P3&0x0f;
+   7   2            if(a!=0x00)
+   8   2            break;
+   9   2            for(j=0;j<5000;j++);
+  10   2           }
+  11   1      }
+  12          //i have wrote a better _code for this traffic system in notepad file name "mytrafficcode".
+  13          //please have a look into that _code
+  14          //actually here when no cars will be coming from any side then one side at a time will be on and the delay
+             - function will be called 
+  15          //wherein it will wait for a few seconds for the particular lane to be on and the others will be red.
+  16          //but there is a problem that there in that delay function it will again check whether there is a car at t
+             -hat time and if yes
+  17          //it will break from that particulart loop and go to main function again...now this is absolutely fine if 
+             -no car is coming from
+  18          //any side but if a car is coming from any side then there will be problem with the delay function.
+  19          //this is because it will check in the main function from where a car is coming and will turn on the green
+             - led for that lane and will
+  20          // call the same delay function wherein there will be a check again from where the car is coming..now the 
+             -problem is if a car is detected
+  21          //from another side then there will be the problem that my initial car led will be switched from green to 
+             -red in a very short span 
+  22          //of time leaving scope for a accident..so i have introduce sigdelay function in my new _code
+  23          //please see my notepad file for that
+  24          
+  25          //void sigdelay(){
+  26            //int k=0;
+  27            //for(k=0;k<=4000;k++);
+  28          //}
+  29          
+  30          
+  31          void main(){
+  32   1         while(1){
+  33   2           a=P3&0x0f;
+  34   2           if(a==0x00){
+  35   3             P0=0x1e;
+  36   3             delay(150);
+  37   3             P0=0x2d;
+  38   3             delay(150);
+  39   3             P0=0x4b;
+  40   3             delay(150);
+  41   3             P0=0x87;
+  42   3             delay(150);
+  43   3           }
+  44   2           //side 1 is on my right and side 3 is on my left and side 2 is on top of the screen side and side 4 is 
+             -on the bottom of the screen
+  45   2           //if car comes from side 1 then green led connected to pin 4 will glow and the others reds will glow ex
+             -cept pin 0;
+  46   2           if(a==0x01){
+C51 COMPILER V9.57.0.0   TRAFFICFINALCODE                                                  01/22/2018 01:34:17 PAGE 2   
+
+  47   3             P0=0x1e;
+  48   3             delay(250);
+  49   3           }
+  50   2           //if car comes from side 2 then green led connected to pin 5 will glow and the others reds will glow ex
+             -cept pin 1;
+  51   2           if(a==0x02){
+  52   3             P0=0x2d;
+  53   3             delay(250);
+  54   3           }
+  55   2           //if car comes from side 3 then green led connected to pin 6 will glow and the others reds will glow ex
+             -cept pin 2;
+  56   2           if(a==0x04){
+  57   3             P0=0x4b;
+  58   3             delay(250);
+  59   3           }
+  60   2           //if car comes from side 4 then green led connected to pin 7 will glow and the others reds will glow ex
+             -cept pin 3;
+  61   2           if(a==0x08){
+  62   3             P0=0x87;
+  63   3             delay(250);
+  64   3           }
+  65   2         }
+  66   1       }
+  67          
+  68          //==================================================================
+  69          //         CONNECTIONS
+  70          //==================================================================
+  71          //1.the USBASP programmer connections are easy to made as it has only 6 pins and the corresponding pins in
+             - the dev board are 
+  72          // clearly marked
+  73           //2.the four object sensors are connected to the port 3 of the board like : it has 8 pins..we wikll attac
+             -h our pins to the first 4
+  74           //pins of the port 3..our first object sensor will go to P3 pin 0,second to P3 pin 1,third to P3 pin 2 an
+             -d fourth to P3 pin 3
+  75           //each of the sensors will have 3 pins coming out..one is Vcc,another in ground and the DOUT..vcc goes to
+             - the outermost socket of 
+  76           // a pin,the ground goes to the second socket of a pin and the last DOUT pin goes to the innermost socket
+             - of a pin...these finishes
+  77           //all the connections of the socket..
+  78           //3.now the leds are connected to port 0..the earthing of all the leds are common and is connected to any
+             - ground pin of the board
+  79           //and the anodes of all the leds are connected to the 8 pins of the port 0...now it will be like suppose 
+             -if the red led anode 
+  80           //is connected to the pin 0 then its corresponding green led in connected to pin 4,like this red of anoth
+             -er to pin 1 and its green to pin 5
+  81           //and like this it continues..
+  82           //4.thus all the connectionns are finished and we are done with it...but after we finish flashing the _co
+             -de to the microcontroller
+  83           //we will disconnect the wirings of the usbasp programmer....
+  84           
+  85           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    165    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.57.0.0   TRAFFICFINALCODE                                                  01/22/2018 01:34:17 PAGE 3   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

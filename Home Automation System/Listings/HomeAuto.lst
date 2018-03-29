@@ -1,0 +1,71 @@
+C51 COMPILER V9.57.0.0   HOMEAUTO                                                          12/31/2017 01:38:23 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE HOMEAUTO
+OBJECT MODULE PLACED IN .\Objects\HomeAuto.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE HomeAuto.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -HomeAuto.lst) TABS(2) OBJECT(.\Objects\HomeAuto.obj)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<stdio.h>
+   3          
+   4          //_sbit variable type is used to refer to particular pins of a port
+   5          //_ is used with _sbit as _sbit is a keyword(understand it nicely)
+   6          sbit b=P0^0;
+   7          sbit c=P0^1;
+   8          
+   9          unsigned int a;
+  10          //store the value of the bits in the SBUF reg
+  11          
+  12          void receive(){
+  13   1        TMOD=0X20; //TIMER 1 AUTO RELOAD(8 _BIT AUTO RELOAD)
+  14   1        TH1=0XFD; //SET BAUD RATE=9600
+  15   1        SCON=0X50;//SET 8 BIT UART MODE
+  16   1        TR1=1;//ENABLE TIMER1
+  17   1        
+  18   1        while(RI==0);//WAIT FOR RECEIVE INTERRUPT TO BECOME 1
+  19   1        a=SBUF;//VALUE FROM SBUF STORED IN VARIABLE A
+  20   1        RI=0;
+  21   1      }
+  22          
+  23          void main(){
+  24   1        P0=0X00;//SETTING ALL PINS OF PORT0 TO 0;
+  25   1        
+  26   1        while(1){
+  27   2          receive();
+  28   2        
+  29   2          if(a=='a'){
+  30   3            b=0;
+  31   3          }
+  32   2          
+  33   2          if(a=='A'){
+  34   3            b=1;
+  35   3          }
+  36   2      
+  37   2          if(a=='b'){
+  38   3            c=0;
+  39   3          }
+  40   2      
+  41   2          if(a=='B'){
+  42   3            c=1;
+  43   3          }
+  44   2        }
+  45   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     72    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.57.0.0   HOMEAUTO                                                          12/31/2017 01:38:23 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

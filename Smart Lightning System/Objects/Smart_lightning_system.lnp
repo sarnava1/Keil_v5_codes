@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\smart_lighting.obj" 
+TO ".\Objects\Smart_lightning_system" 
+PRINT(".\Listings\Smart_lightning_system.m51") RAMSIZE(256) 
+CODE( 0X0000-0X1FFF )

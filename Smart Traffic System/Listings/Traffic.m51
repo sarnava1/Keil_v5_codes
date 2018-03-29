@@ -1,0 +1,164 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    12/31/2017  18:49:13  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\traffic.obj TO .\Objects\Traffic PRINT (.\Listings\Traffic.
+>> m51) RAMSIZE (256) CODE (0X0000-0X1FFF)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\traffic.obj (TRAFFIC)
+
+
+LINK MAP OF MODULE:  .\Objects\Traffic (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?TRAFFIC
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0068H     UNIT         ?PR?MAIN?TRAFFIC
+            CODE    0868H     003DH     UNIT         ?PR?_DELAY?TRAFFIC
+            CODE    08A5H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\Traffic (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TRAFFIC
+
+?PR?MAIN?TRAFFIC
+  +--> ?PR?_DELAY?TRAFFIC
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Traffic (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:08A5H         SEGMENT       ?C_C51STARTUP
+  I:000EH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/31/2017  18:49:13  PAGE 2
+
+
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:08A8H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:08A5H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:08A5H         LINE#         133
+  C:08A7H         LINE#         134
+  C:08A8H         LINE#         135
+  C:08A9H         LINE#         136
+  C:08ABH         LINE#         185
+  C:08AEH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        TRAFFIC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:086BH         PUBLIC        _delay
+  D:00B8H         PUBLIC        IP
+  C:0800H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:0008H         PUBLIC        a
+  D:00C8H         PUBLIC        T2CON
+  D:000AH         PUBLIC        i
+  D:000CH         PUBLIC        j
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0020
+  -------         ENDPROC       L?0020
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        t
+  C:086BH         LINE#         4
+  C:086BH         LINE#         5
+  C:0879H         LINE#         6
+  C:0882H         LINE#         7
+  C:0886H         LINE#         8
+  C:0886H         LINE#         9
+  C:089AH         LINE#         10
+  C:08A4H         LINE#         11
+  -------         ENDPROC       _DELAY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/31/2017  18:49:13  PAGE 3
+
+
+  -------         PROC          MAIN
+  C:0800H         LINE#         12
+  C:0800H         LINE#         13
+  C:0800H         LINE#         14
+  C:0809H         LINE#         15
+  C:080DH         LINE#         16
+  C:0810H         LINE#         17
+  C:0816H         LINE#         18
+  C:0819H         LINE#         19
+  C:081CH         LINE#         20
+  C:081FH         LINE#         21
+  C:0822H         LINE#         22
+  C:0825H         LINE#         23
+  C:0828H         LINE#         24
+  C:0828H         LINE#         25
+  C:0830H         LINE#         26
+  C:0833H         LINE#         27
+  C:0836H         LINE#         28
+  C:0836H         LINE#         29
+  C:083EH         LINE#         30
+  C:0841H         LINE#         31
+  C:0844H         LINE#         32
+  C:0844H         LINE#         33
+  C:084CH         LINE#         34
+  C:084FH         LINE#         35
+  C:0855H         LINE#         36
+  C:0855H         LINE#         37
+  C:085DH         LINE#         38
+  C:0860H         LINE#         39
+  C:0866H         LINE#         40
+  C:0866H         LINE#         41
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TRAFFIC
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00B4H BYTE ( 8%) *
+******************************************************************************
+
+Program Size: data=15.0 xdata=0 code=180
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

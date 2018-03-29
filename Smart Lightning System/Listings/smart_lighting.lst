@@ -1,0 +1,138 @@
+C51 COMPILER V9.57.0.0   SMART_LIGHTING                                                    02/18/2018 15:33:29 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE SMART_LIGHTING
+OBJECT MODULE PLACED IN .\Objects\smart_lighting.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE smart_lighting.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Lis
+                    -tings\smart_lighting.lst) TABS(2) OBJECT(.\Objects\smart_lighting.obj)
+
+line level    source
+
+   1          //the STARTUP.A51 contains instructions to be run when the microcontroller is reset
+   2          //steps to write a project in keil:
+   3          //1.open it from taskbar or anywhere
+   4          //2.from project click on new mewvision project
+   5          //3.after that in the desired folder save your new project by giving it a name
+   6          //4.after that give your file a suitable name and the extension will be given by them only
+   7          //5.after that follow the normal steps
+   8          //6.after that click on on new for new file and write the _code there and give it a .c extension.
+   9          //7.enjoy coding
+  10          //====================================================================================================
+  11          
+  12          #include<stdio.h>
+  13          #include<reg52.h>
+  14          sbit led0=P0^0;//relay 1 controls the bright bulb!!!!
+  15          sbit led1=P0^1;//relay 2 controls the dim bulb!!!!!
+  16          
+  17          signed int occupants,s1,s2;
+  18          
+  19          void main(){
+  20   1        occupants=0;
+  21   1        s1=0;//variable associated with the first sensor
+  22   1        s2=0;//variable associated with the 2nd sensor
+  23   1        EA=1;//this enables all the interrupts of the 8051 microcontroller as it is the global enable _interrupt 
+             -_bit
+  24   1        EX0=1;//enabling the external interrupts of pin 2 and 3 of port 3
+  25   1        EX1=1;//enabling the external interrupts of pin 2 and 3 of port 3
+  26   1        IT0=1;//setting the falling edge triggered _interrupt in the TCON _register
+  27   1        IT1=1;//setting the falling edge triggered _interrupt in the TCON _register
+  28   1        
+  29   1        led0=1;
+  30   1        led1=1;
+  31   1        
+  32   1      //  while(1){
+  33   1      //    if(occupants>0){
+  34   1      //      led0=1;//switches on the bright bulb
+  35   1      //      led1=0;//switches off the dim bulb
+  36   1      //    }
+  37   1      //    else{
+  38   1      //      led0=0;//switches off the bright bulb!!!
+  39   1      //      led1=1;//switches on the dim bulb!!!!
+  40   1      //    }
+  41   1      //  }
+  42   1      //}
+  43   1      
+  44   1        while(1){
+  45   2          if(occupants%2==1){
+  46   3            led0=0;//switches on the bright bulb
+  47   3            led1=1;//switches off the dim bulb
+  48   3          }
+  49   2          else{
+  50   3            led0=1;//switches off the bright bulb!!!
+  51   3            led1=0;//switches on the dim bulb!!!!
+  52   3          }
+  53   2        }
+C51 COMPILER V9.57.0.0   SMART_LIGHTING                                                    02/18/2018 15:33:29 PAGE 2   
+
+  54   1      }
+  55          
+  56          
+  57          //writing the _interrupt service routine
+  58          //second method is this
+  59          //void ISR_ex0(void) //_interrupt 0
+  60          //{
+  61          //  s1++;
+  62          //  if(s1-s2>0){
+  63          //    occupants++;
+  64          //  }
+  65          //}
+  66          
+  67          //void ISR_ex1(void) _interrupt 1
+  68          //{
+  69          //  s2++;
+  70          //  if(s2-s1>0){
+  71          //    occupants--;
+  72          //  }
+  73          //}
+  74          
+  75          //the first method
+  76          
+  77          void ISR_ex0(void) interrupt 0
+  78          {
+  79   1        s1++;
+  80   1        if(s1%2==1){
+  81   2          occupants++;
+  82   2      }
+  83   1      }
+  84          
+  85          
+  86          //=============================CONNECTIONS================================================================
+             -==
+  87          
+  88          //1.the relay connections are the same as as that of project 1
+  89          //2.the usbasp programmer connections are the same as they were in all the projects.
+  90          //3.the 220V ac connections to the relay and then to the bulbs are the same as that of project 1 and are d
+             -rawn in my diary.
+  91          //4.the only new thing is the IC 7404 and the 2 PIR sensors.
+  92          //5.the pin diagram of the pir sensors are easily available in the net
+  93          //6.connect the vcc pin of the pir sensors to the vcc row of the breadboard and the ground pin of the pir 
+             -sensors to the ground row 
+  94          //of the pir sensors
+  95          //7.take a breadboard and connect ground and vcc from the dev board to the last row of the dev board(i thi
+             -nk you are understanding 
+  96          //what i am talking of now
+  97          //8.take the ic 7404(NOT GATE) and then connect its 14th pin to the vcc row and the 7th pin to the ground 
+             -row
+  98          //9.connect the voltage output pin of the two pirs to the 1 and 3 pin of the ic
+  99          //10.conect the 2nd pin of the ic to the port 3 pin 2 signal pin
+ 100          //11.connect the 4th pin of the ic to the port 3 pin 3 signal pin
+ 101          //12.the relay connections are as usual the same thing
+ 102          //13.bas!!!!only these were the connections of this project
+ 103          //========================THANK YOU ======================================================================
+             -===
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    124    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.57.0.0   SMART_LIGHTING                                                    02/18/2018 15:33:29 PAGE 3   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
