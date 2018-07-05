@@ -8,5 +8,6 @@ I have done the project using AT89S52 microcontroller. It is a 8051 based microc
 
 There are 5 projects. They are:
 
-1. The first project is a home automation system. Herein using a mobile app you can switch on/off the lights and fans of your room. It        uses a bluetooth network. The first 2 codes are of this project. 
+1. The first project is a home automation system. Herein using a mobile app you can switch on/off the lights and fans of your room. It        uses a bluetooth network. The first 2 codes are of this project. RevHomeAuto is also another code for this code. It is for the reverse    logic relays. Relays are of two types: reverse logic and forward logic. So if anyone is using reverse logic relays please use this        code.
+2. 
 
