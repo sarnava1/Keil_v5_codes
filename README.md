@@ -4,7 +4,7 @@ work with 8051 microcontroller. We still have not been taught microcontrollers i
 I acquired all the knowledge of the 8051 microcontroller while doing these small projects. I did five small but practical projects. By 
 practical I mean we can easily implement them wherever we like with some moderations.
 
-I have done the project using AT89S52 microcontroller. It is a 8051 based microcontroller. It is a microcontroller which was made by Atmel which was sold to Microchip in 2016.
+I have done the project using AT89S52 microcontroller. It is a 8051 based microcontroller. It is a microcontroller which was made by Atmel which was sold to Microchip in 2016. All the connections of the projects are given in the respective codes. All the connections are very well explained and easy to understand for any interested person. 
 
 There are 5 projects. They are:
 
