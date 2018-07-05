@@ -4,3 +4,9 @@ work with 8051 microcontroller. We still have not been taught microcontrollers i
 I acquired all the knowledge of the 8051 microcontroller while doing these small projects. I did five small but practical projects. By 
 practical I mean we can easily implement them wherever we like with some moderations.
 
+I have done the project using AT89S52 microcontroller. It is a 8051 based microcontroller. It is a microcontroller which was made by Atmel which was sold to Microchip in 2016.
+
+There are 5 projects. They are:
+
+1. The first project is a home automation system. Herein using a mobile app you can switch on/off the lights and fans of your room. It        uses a bluetooth network. The first 2 codes are of this project. 
+
