@@ -23,5 +23,5 @@ There are 5 projects. They are:
    For that we are using putty for communication with my computer. The name of the project is RFIDPROJECT.There are two header files which    I had to write for better understanding of the code. One header file handles the LCD functions and the other header file handles the 
    UART communication with EM-18 reader module. This is a very useful project and we cna implement it anywhere we like. 
    
-5.  
+5. The last project is to make the lightning of the bathroom smart. When there will be no one in the bathroom the light will be off and      when someone will be there the lights will turn on.
 
